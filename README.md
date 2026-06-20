@@ -4,6 +4,23 @@ Dell Fan Controller is a PowerShell controller for selected Dell systems where D
 
 This project touches hardware and BIOS-related fan-control settings. Use it at your own risk, test read-only modes first, and use only on hardware you understand and can recover manually.
 
+## Architecture
+
+```mermaid
+flowchart LR
+    task["Windows Task Scheduler"] --> controller["DellFanController.ps1"]
+    controller --> memory["Core Temp Shared Memory"]
+    memory --> check["temperature check"]
+    check --> cctk["Dell CCTK"]
+    cctk --> bios["Dell BIOS fan control"]
+
+    config["configuration"] -.-> controller
+    controller -.-> log["production log CSV"]
+    controller -.-> state["state management"]
+```
+
+This is the short version of the runtime path: the Scheduled Task starts the controller, Core Temp provides readings, the controller decides whether boost is needed, and Dell CCTK applies verified fan-control changes. See [Architecture](docs/ARCHITECTURE.md) for the full diagrams and safety boundaries.
+
 ## Features
 
 - Core Temp shared-memory temperature snapshots.

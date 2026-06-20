@@ -1,0 +1,40 @@
+name: PowerShell static and fake tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  safe-tests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parser check
+        shell: powershell
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -File -Filter *.ps1 | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count -gt 0) {
+              $failed = $true
+              Write-Error "$($_.FullName): $($errors | Out-String)"
+            }
+          }
+          if ($failed) { exit 1 }
+      - name: Fake-only tests
+        shell: powershell
+        run: |
+          $tests = @(
+            'Test-ControllerState.ps1',
+            'Test-DellCctkProcessExecutor.ps1',
+            'Test-FanBackend.Mock.ps1',
+            'Test-FanBackend.DellCctk.ps1',
+            'Test-ResetDellFanController.ps1',
+            'Test-SettingsApp.ps1'
+          )
+          foreach ($test in $tests) {
+            powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\$test"
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }

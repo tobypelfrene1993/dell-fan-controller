@@ -1,0 +1,26 @@
+name: Bug report
+description: Report a reproducible problem without sharing private logs.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Windows version, PowerShell version, Dell model, CCTK version. Do not include serial numbers.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: sanitized_logs
+    attributes:
+      label: Sanitized logs
+      description: Remove hostnames, usernames, paths, run ids, correlation ids and timestamps before posting.

@@ -1,0 +1,15 @@
+{
+  "SchemaVersion": 1,
+  "ThresholdCelsius": 75,
+  "PollIntervalSeconds": 30,
+  "RequiredConsecutiveHighReadings": 2,
+  "BoostDurationSeconds": 150,
+  "CooldownSeconds": 300,
+  "DryRun": false,
+  "SensorProvider": "CoreTempSharedMemory",
+  "Backend": "DellCctk",
+  "CctkPath": "C:\\Program Files (x86)\\Dell\\Command Configure\\X86_64\\cctk.exe",
+  "CommandTimeoutSeconds": 15,
+  "StatePath": "logs\\dell-fan-controller-state.dellcctk.json",
+  "LogPath": "logs\\dell-fan-controller-production.csv"
+}

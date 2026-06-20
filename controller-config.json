@@ -1,0 +1,10 @@
+{
+  "SchemaVersion": 1,
+  "ThresholdCelsius": 75,
+  "PollIntervalSeconds": 60,
+  "RequiredConsecutiveHighReadings": 2,
+  "BoostDurationSeconds": 300,
+  "CooldownSeconds": 600,
+  "DryRun": true,
+  "SensorProvider": "CoreTempSharedMemory"
+}

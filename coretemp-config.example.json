@@ -1,0 +1,7 @@
+{
+  "MappingName": "CoreTempMappingObjectEx",
+  "DurationSeconds": 300,
+  "IntervalSeconds": 30,
+  "DryRun": true,
+  "ReadOnly": true
+}
